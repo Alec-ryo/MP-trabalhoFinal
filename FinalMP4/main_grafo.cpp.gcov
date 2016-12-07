@@ -1,0 +1,472 @@
+        -:    0:Source:main_grafo.cpp
+        -:    0:Graph:main_grafo.gcno
+        -:    0:Data:main_grafo.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <stdio.h>
+        -:    2:#include <string.h>
+        -:    3:#include <stdlib.h>
+        -:    4:#include <unistd.h>
+        -:    5:#include "grafo.cpp"
+        -:    6:
+        1:    7:int main(){
+        -:    8:      int i,j,x,valida[10];
+        -:    9:       
+        -:   10:      int resp;
+        -:   11:      char aux [10];
+        -:   12:      char pesquisa [40];
+        -:   13:      int opcao, result;
+        -:   14:      int cont;
+        -:   15:      char vai[40];
+        -:   16:      char volta[40];
+        -:   17:      char amizade1[10][40];
+        -:   18:      char amizade2[10][40];
+        -:   19:      int viagem;
+        -:   20:      int num[10];
+        -:   21:      int edita;
+        -:   22:      int quantidade; 
+        -:   23:      int invalido;
+        -:   24:      char c,sn[1];     
+        -:   25:      char nome[10][40],nomedit[40],generoc[2],genero[10][10],escolaridade[10][50],interesse[10][20][200];
+        1:   26:      int idade[10],op,pos=1;     
+        -:   27:      int interesses,contai;       
+        1:   28:            result = 0;
+        1:   29:            quantidade = 0;
+        1:   30:            viagem = 0;
+        1:   31:            resp = 1;
+        1:   32:            opcao = 0;
+        1:   33:            cont = 0;
+        -:   34:     
+        -:   35:       
+       11:   36:    for (i =1; i<=10; i++){
+       10:   37:        fflush(stdin);
+       10:   38:        strcpy(nome[i], " - ");
+       10:   39:        strcpy(amizade1[i], " - ");
+       10:   40:        strcpy(amizade2[i], " - ");
+       10:   41:        num[i] = 0;
+       10:   42:        valida[i] = i;
+        -:   43:    }
+        -:   44:       
+        -:   45:
+        -:   46:    inicio:
+        7:   47:    while (resp == 1)  { 
+        3:   48:        menu();
+        3:   49:        scanf("%d",&opcao); 
+        3:   50:        invalido = 0;
+       33:   51:        for (i=1; i<=10; i++){
+       30:   52:            if (opcao != valida[i]){
+       27:   53:                invalido++;
+        -:   54:            }
+       30:   55:            if (invalido == 10){
+    #####:   56:                printf("\n _____________________________________________________________________________");
+    #####:   57:                printf("\n|                       OPCAO INVALIDA! TENTE NOVAMENTE                       |");
+    #####:   58:                printf("\n|                   PRESSIONE QUALQUER TECLA PARA CONTINUAR                   |");
+    #####:   59:                printf("\n|_____________________________________________________________________________|\n");
+    #####:   60:                c = getchar();
+    #####:   61:                scanf("%c",&c);                               
+        -:   62:            }
+        -:   63:        }             
+        -:   64:              
+        3:   65:        switch (opcao){
+        -:   66:            case 1:
+        -:   67:
+        1:   68:                system("clear");
+        1:   69:                printf(" _____________________________________________________________________________\n");
+        1:   70:                printf("|                                CRIAR PESSOA                                 |\n");
+        1:   71:                printf("|_____________________________________________________________________________|\n");
+        1:   72:                printf("\nDigite o nome: ");
+        1:   73:                scanf(" %[^\n]s",nome[pos]);
+        1:   74:                printf("\nGênero [M ou F]: ");
+        1:   75:                scanf("%s", generoc);
+        -:   76:
+        1:   77:            while(generoc[0] != 'm' && generoc[0] != 'f' && generoc[0] != 'M' && generoc[0] != 'F'){
+        -:   78:            
+    #####:   79:                printf("Caracter incorreto! Digite novamente: ");
+    #####:   80:                scanf("%s", generoc);
+        -:   81:        
+        -:   82:            }
+        -:   83:      
+        1:   84:            if(generoc[0] == 'm' || generoc[0] == 'M')
+        1:   85:                strcpy(genero[pos],"Masculino");
+        1:   86:            if(generoc[0] == 'f' || generoc[0] == 'F')
+    #####:   87:                strcpy(genero[pos],"Feminino");
+        1:   88:                printf("\nDigite a idade: ");
+        1:   89:                scanf("%d", &idade[pos]);
+        -:   90:
+    #####:   91:            do{
+        1:   92:                printf("\nEscolha o grau de escolaridade:\n");
+        1:   93:                printf("[1] Primeiro grau incompleto\n");
+        1:   94:                printf("[2] Primeiro grau completo\n");
+        1:   95:                printf("[3] Segundo grau incompleto\n");
+        1:   96:                printf("[4] Segundo grau completo\n");
+        1:   97:                printf("[5] Superior incompleto\n");
+        1:   98:                printf("[6] Superior completo\n");
+        1:   99:                printf("[7] Pós-graduação\n");
+        1:  100:                printf("Digite: ");
+        1:  101:                scanf("%d", &op);
+        1:  102:                if(op==1)
+    #####:  103:                    strcpy(escolaridade[pos],"Primeiro grau incompleto");
+        1:  104:                if(op==2)
+    #####:  105:                    strcpy(escolaridade[pos],"Primeiro grau completo");
+        1:  106:                if(op==3)
+    #####:  107:                    strcpy(escolaridade[pos],"Segundo grau incompleto");
+        1:  108:                if(op==4)
+    #####:  109:                    strcpy(escolaridade[pos],"Segundo grau completo");
+        1:  110:                if(op==5)
+    #####:  111:                    strcpy(escolaridade[pos],"Superior incompleto");
+        1:  112:                if(op==6)
+    #####:  113:                    strcpy(escolaridade[pos],"Superior completo");
+        1:  114:                if(op==7)
+        1:  115:                    strcpy(escolaridade[pos],"Pós-graduação");
+        1:  116:                if(op<=0 || op>7)
+    #####:  117:                    printf("Opção incorreta! Digite novamente.");
+        1:  118:            }while(op<=0 || op>7);
+        -:  119:
+        1:  120:            sn[0]='s';
+        1:  121:            printf("\nDigite no máximo 20 interesses :\n");
+        1:  122:            interesses=1;
+        1:  123:            contai=20; 
+        -:  124:
+        1:  125:            do{
+        -:  126:
+        2:  127:                if(sn[0]=='s' && interesses<=20){
+        2:  128:                    printf("Digite o interesse %d: ",interesses);
+        2:  129:                    scanf(" %[^\n]s",interesse[pos][interesses]);
+        2:  130:                    contai--;
+        2:  131:                    printf("Inserir outro interesse? [s][n] (%d interesses restantes): ",contai);
+        2:  132:                    scanf("%s",sn);
+        2:  133:                if(sn[0]=='s')
+        1:  134:                    interesses++;
+        -:  135:                }
+        -:  136:
+        2:  137:            }while(sn[0]=='s' && interesses<=20);
+        -:  138:
+        -:  139:
+        1:  140:            printf("                  CADASTRO                   \n");
+        1:  141:            system("clear");
+        1:  142:            printf("Nome:\t\t%s\n",nome[pos]);
+        1:  143:            printf("Gênero:\t\t%s\n",genero[pos]);
+        1:  144:            printf("Idade:\t\t%d\n",idade[pos]);
+        1:  145:            printf("Escolaridade:\t%s\n",escolaridade[pos]);
+        1:  146:            printf("Interesses:\t");
+        3:  147:            for(x=1;x<=interesses;x++){
+        2:  148:                if (x<interesses && interesses!=x)
+        1:  149:                    printf("%s, ",interesse[pos][x]);
+        2:  150:                if (x==interesses)
+        1:  151:                    printf("%s\n",interesse[pos][x]);
+        -:  152:        }
+        -:  153:
+        1:  154:        printf("\n                   PRESSIONE QUALQUER TECLA PARA CONTINUAR                   ");
+        1:  155:        c = getchar();
+        1:  156:        scanf("%c",&c);
+        1:  157:        pos++;     
+        -:  158:             
+        1:  159:        break;
+        -:  160:                     
+        -:  161:        case 2:
+        -:  162:                  editar:
+        1:  163:                          system("clear");
+        -:  164:                         
+        1:  165:                    printf("\n _____________________________________________________________________________");
+        1:  166:                          printf("\n|                      VOCE ESCOLHEU EDITAR UMA PESSOA!                       |");
+        1:  167:                          printf("\n|_____________________________________________________________________________|\n\n");
+        1:  168:                          printf("\n\n\t\t        LISTA DE PESSOAS CADASTRADAS\n");
+        1:  169:                          printf("\t\t___________________________________________\n");
+        1:  170:                          printf("\t\t PESSOA\n");
+       11:  171:                    for (i=1; i<=10; i++){
+       10:  172:                               printf("\t\t %s\n",nome[i]); 
+        -:  173:                          }
+        1:  174:                          printf("\n     >> INDIQUE O NOME DA PESSOA QUE DESEJA EDITAR: ");
+        1:  175:                          scanf(" %[^\n]s",nomedit);
+        1:  176:                  x=0; 
+       11:  177:                  for (i=1; i<=10; i++){
+       10:  178:                              if(strcmp (nomedit, nome[i])==0)
+        1:  179:                              x=i; 
+        -:  180:                          }
+        1:  181:                        if (x==0){
+        -:  182:
+    #####:  183:                                     printf("\n _____________________________________________________________________________");
+    #####:  184:                                     printf("\n|   IMPOSSIVEL INSERIR NOVA PESSOA, A PESSOA INFORMADA NAO ESTA CADASTRADA!   |");
+    #####:  185:                                     printf("\n|                   PRESSIONE UMA TECLA E TENTE NOVAMENTE                     |");
+    #####:  186:                                     printf("\n|_____________________________________________________________________________|\n");
+    #####:  187:                                                                         c=getchar();
+    #####:  188:                      scanf("%c",&c);                 
+    #####:  189:                                               goto editar;
+        -:  190:
+        -:  191:                  }     
+        -:  192:
+        -:  193:                        else{
+        1:  194:                          printf("\n     >> VOCE ESCOLHEU EDITAR %s",nome[x]);
+        1:  195:                          printf("\n     >> AGORA ENTRE COM O NOVO NOME: ");
+        1:  196:                          scanf(" %[^\n]s", nome[x]);
+        -:  197:                          
+        1:  198:                          printf("\n _____________________________________________________________________________");
+        1:  199:                          printf("\n|                     O NOME FOI ALTERADO COM SUCESSO!                      |");
+        1:  200:                          printf("\n|                   PRESSIONE QUALQUER TECLA PARA CONTINUAR                   |");
+        1:  201:                          printf("\n|_____________________________________________________________________________|\n");
+        1:  202:                                                    c=getchar();
+        1:  203:                      scanf("%c",&c);}                  
+        1:  204:                     break;
+        -:  205:                     
+        -:  206:                     case 3:
+    #####:  207:                          system("clear");
+    #####:  208:                          printf("\n _____________________________________________________________________________");
+    #####:  209:                          printf("\n|                VOCE ESCOLHEU EXIBIR AS PESSOAS CADASTRADAS                  |");
+    #####:  210:                          printf("\n|_____________________________________________________________________________|\n");
+        -:  211:                          
+    #####:  212:                          printf("\n\n\t\t        LISTA DE PESSOAS CADASTRADAS\n");
+    #####:  213:                          printf("\t\t___________________________________________\n");
+    #####:  214:                          printf("\t\t PESSOA\n");
+    #####:  215:                  for (i=1; i<=10; i++){
+    #####:  216:                               printf("\t\t %s\n",nome[i]); 
+        -:  217:                          }
+        -:  218:
+    #####:  219:                          printf("\n _____________________________________________________________________________");
+    #####:  220:                          printf("\n|                     VISUALIZACAO EFETUADA COM SUCESSO!                      |");
+    #####:  221:                          printf("\n|                   PRESSIONE QUALQUER TECLA PARA CONTINUAR                   |");
+    #####:  222:                          printf("\n|_____________________________________________________________________________|\n");
+    #####:  223:                          c=getchar();
+    #####:  224:                      scanf("%c",&c);                  
+    #####:  225:                     break;                    
+        -:  226:                     
+        -:  227:                     case 4:
+    #####:  228:                           if (cont < 2){
+    #####:  229:                                printf("\n _____________________________________________________________________________");
+    #####:  230:                                printf("\n| IMPOSSIVEL INSERIR AMIZADE, DEVE HAVER PELO MENOS 2 PESSOAS CADASTRADAS     |");
+    #####:  231:                                printf("\n|                   PRESSIONE QUALQUER TECLA PARA CONTINUAR                   |");
+    #####:  232:                                printf("\n|_____________________________________________________________________________|\n");
+    #####:  233:                                                          c=getchar();
+    #####:  234:                      scanf("%c",&c);                
+        -:  235:                           }
+        -:  236:                           else{             
+        -:  237:                                invalido:
+    #####:  238:                                system("clear");
+    #####:  239:                                printf("\n _____________________________________________________________________________");
+    #####:  240:                                printf("\n|                   VOCE ESCOLHEU INSERIR UMA AMIZADE                         |");
+    #####:  241:                                printf("\n|_____________________________________________________________________________|\n\n");
+    #####:  242:                                printf("\n\n\t\t        LISTA DE PESSOAS CADASTRADAS\n");
+    #####:  243:                                printf("\t\t___________________________________________\n\n");
+    #####:  244:                                printf("\t\t PESSOA\n");
+    #####:  245:                    for (i=1; i<=10; i++){
+    #####:  246:                               printf("\t\t %s\n",nome[i]); 
+        -:  247:                          }
+    #####:  248:                                printf("\n     >> ENTRE COM A PESSOA A RECEBER A AMIZADE: ");
+    #####:  249:                                scanf(" %[^\n]s", vai);
+        -:  250:                                
+    #####:  251:                                strcpy(amizade1[viagem] , vai);
+    #####:  252:                                for (i=1; i<=10; i++){
+    #####:  253:                                     if (strcmp (vai, nome[i])==0){
+    #####:  254:                                          i = 10;
+        -:  255:                                     }
+        -:  256:                                     else{
+    #####:  257:                                          if (i == 9){
+    #####:  258:                                               printf("\n _____________________________________________________________________________");
+    #####:  259:                                               printf("\n|   IMPOSSIVEL INSERIR AMIZADE , A PESSOA INFORMADA NAO ESTA CADASTRADA!      |");
+    #####:  260:                                               printf("\n|                   PRESSIONE UMA TECLA E TENTE NOVAMENTE                     |");
+    #####:  261:                                               printf("\n|_____________________________________________________________________________|\n");
+    #####:  262:                                                                         c=getchar();
+    #####:  263:                      scanf("%c",&c);                 
+    #####:  264:                                               goto invalido;
+        -:  265:                                          }
+        -:  266:                                     }
+        -:  267:                                }    
+        -:  268:                                                             
+    #####:  269:                                printf("\n     >> AGORA, ENTRE COM A PESSOA QUE SERA A AMIZADE: ");
+    #####:  270:                                scanf(" %[^\n]s", volta);
+        -:  271:                                
+    #####:  272:                                strcpy(amizade2[viagem] , volta);
+    #####:  273:                                for (i=1; i<=10; i++){
+    #####:  274:                                     if (strcmp (volta, nome[i])==0){
+    #####:  275:                                          i = 10;
+        -:  276:                                     }
+        -:  277:                                     else{
+    #####:  278:                                          if (i == 9){
+    #####:  279:                                               printf("\n _____________________________________________________________________________");
+    #####:  280:                                               printf("\n|   IMPOSSIVEL INSERIR AMIZADE, A PESSOA INFORMADA NAO ESTA CADASTRADA!       |");
+    #####:  281:                                               printf("\n|                   PRESSIONE UMA TECLA E TENTE NOVAMENTE                     |");
+    #####:  282:                                               printf("\n|_____________________________________________________________________________|\n");
+    #####:  283:                                                                         c=getchar();
+    #####:  284:                      scanf("%c",&c);                
+    #####:  285:                                               goto invalido;
+        -:  286:                                          }
+        -:  287:                                     }
+        -:  288:                                }
+        -:  289:                                
+        -:  290:                               
+    #####:  291:                                viagem ++;
+        -:  292:                                                          
+        -:  293:                           }                                 
+    #####:  294:                     break;
+        -:  295:                     
+        -:  296:                     case 5:
+    #####:  297:                           if (cont < 2){
+    #####:  298:                                printf("\n _____________________________________________________________________________");
+    #####:  299:                                printf("\n| IMPOSSIVEL INSERIR AMIZADE , DEVE HAVER PELO MENOS 2 PESSOAS CADASTRADAS    |");
+    #####:  300:                                printf("\n|                   PRESSIONE QUALQUER TECLA PARA CONTINUAR                   |");
+    #####:  301:                                printf("\n|_____________________________________________________________________________|\n");
+    #####:  302:                                                          c=getchar();
+    #####:  303:                      scanf("%c",&c);                 
+        -:  304:                           }
+        -:  305:                           else{
+    #####:  306:                                system("clear");
+    #####:  307:                                printf("\n _____________________________________________________________________________");
+    #####:  308:                                printf("\n|                   VOCE ESCOLHEU EDITAR UMA AMIZADE !                        |");
+    #####:  309:                                printf("\n|_____________________________________________________________________________|\n\n");
+    #####:  310:                                printf("\n\t\t        LISTA DAS AMIZADES CADASTRADAS\n");
+    #####:  311:                                printf("\t\t___________________________________________\n");
+    #####:  312:                                for (i=1; i<=10; i++){
+    #####:  313:                                     printf("\t\t CONTROLE >> %d\t\t\tAMIZADE >> %d\n\t\t\t\tAMIZADE1  >> %s\n\t\t\t\tAMIZADE2  >> %s\n",1,num[i],amizade1[i],amizade2[i]);
+    #####:  314:                                     printf("\n\t\t___________________________________________\n");
+        -:  315:                                }
+    #####:  316:                                printf("\n\n     >> INFORME O CONTROLE DA AMIZADE A SER EDITADO: ");  
+    #####:  317:                                scanf("%d",&edita);
+    #####:  318:                                printf("\n     >> VOCE ESCOLHEU EDITAR O AMIZADE: %d",num[edita-1]);
+        -:  319:                                
+        -:  320:                                edite:
+    #####:  321:                                printf("\n\n     >> ENTRE COM O NOME DA PESSOA QUE RECEBERÁ A AMIZADE: ");
+    #####:  322:                                scanf(" %[^\n]s", vai);
+        -:  323:                                
+    #####:  324:                                strcpy(amizade1[edita-1] , vai);
+    #####:  325:                                for (i=1; i<=10; i++){
+    #####:  326:                                     if (strcmp (vai, nome[i])==0){
+    #####:  327:                                          i = 10;
+        -:  328:                                     }
+        -:  329:                                     else{
+    #####:  330:                                          if (i == 9){
+    #####:  331:                                               printf("\n _____________________________________________________________________________");
+    #####:  332:                                               printf("\n|   IMPOSSIVEL INSERIR AMIZADE , A PESSOA INFORMADA NAO ESTA CADASTRADA!   |");
+    #####:  333:                                               printf("\n|                   PRESSIONE UMA TECLA E TENTE NOVAMENTE                     |");
+    #####:  334:                                               printf("\n|_____________________________________________________________________________|\n");
+    #####:  335:                                                                         c=getchar();
+    #####:  336:                      scanf("%c",&c);                
+    #####:  337:                                               goto edite;
+        -:  338:                                          }
+        -:  339:                                     }
+        -:  340:                                }    
+        -:  341:                                                             
+    #####:  342:                                printf("\n     >> AGORA, ENTRE COM A NOVA AMIZADE: ");
+    #####:  343:                                scanf(" %[^\n]s", volta);
+        -:  344:                                
+    #####:  345:                                strcpy(amizade2[edita-1] , volta);
+    #####:  346:                                for (i=1; i<=10; i++){
+    #####:  347:                                     if (strcmp (volta, nome[i])==0){
+    #####:  348:                                          i = 10;
+        -:  349:                                     }
+        -:  350:                                     else{
+    #####:  351:                                          if (i == 9){
+    #####:  352:                                               printf("\n _____________________________________________________________________________");
+    #####:  353:                                               printf("\n|   IMPOSSIVEL INSERIR AMIZADE , A PESSOA INFORMADA NAO ESTA CADASTRADA!   |");
+    #####:  354:                                               printf("\n|                   PRESSIONE UMA TECLA E TENTE NOVAMENTE                     |");
+    #####:  355:                                               printf("\n|_____________________________________________________________________________|\n");
+    #####:  356:                                                                         c=getchar();
+    #####:  357:                      scanf("%c",&c);                 
+    #####:  358:                                               goto edite;
+        -:  359:                                          }
+        -:  360:                                     }
+        -:  361:                                }
+        -:  362:                                
+    #####:  363:                                printf("\n     >> POR FIM, INFORME O NOVO NUMERO DA AMIZADE: ");                     
+    #####:  364:                                scanf("%d",&num[edita-1]);
+    #####:  365:                                printf("\n _____________________________________________________________________________");
+    #####:  366:                                printf("\n|                       AMIZADE  EDITADA COM SUCESSO!                      |");
+    #####:  367:                                printf("\n|                   PRESSIONE QUALQUER TECLA PARA CONTINUAR                   |");
+    #####:  368:                                printf("\n|_____________________________________________________________________________|\n");
+    #####:  369:                                                          c=getchar();
+    #####:  370:                      scanf("%c",&c);               
+        -:  371:                         
+        -:  372:                         }                        
+        -:  373:                         
+    #####:  374:                     break;
+        -:  375:                     
+        -:  376:                     case 6:
+    #####:  377:                           system("clear");
+    #####:  378:                           printf("\n _____________________________________________________________________________");
+    #####:  379:                           printf("\n|                  VOCE ESCOLHEU VISUALIZAR AS AMIZADES !                  |");
+    #####:  380:                           printf("\n|_____________________________________________________________________________|\n\n");
+    #####:  381:                           printf("\n\t\t        LISTA DAS AMIZADES CADASTRADAS\n");
+    #####:  382:                           printf("\t\t___________________________________________\n\n");
+    #####:  383:                           for (i=1; i<=10; i++){
+    #####:  384:                                printf("\t\t CONTROLE >> %d\t\t\tAMIZADE >> %d\n\t\t\t\tAMIZADE1  >> %s\n\t\t\t\tAMIZADE2  >> %s\n",1,num[i],amizade1[i],amizade2[i]);
+    #####:  385:                                printf("\n\t\t___________________________________________\n\n");
+        -:  386:                           }
+    #####:  387:                           printf("\n _____________________________________________________________________________");
+    #####:  388:                           printf("\n|                   AS AMIZADE FORAM VISUALIZADAS COM SUCESSO!                   |");
+    #####:  389:                           printf("\n|                   PRESSIONE QUALQUER TECLA PARA CONTINUAR                   |");
+    #####:  390:                           printf("\n|_____________________________________________________________________________|\n");
+    #####:  391:                                                     c=getchar();
+    #####:  392:                      scanf("%c",&c);               
+    #####:  393:                     break;
+        -:  394:                     
+        -:  395:                    case 7:
+    #####:  396:                          result = 0;
+    #####:  397:                          if (cont < 2){
+    #####:  398:                                printf("\n _____________________________________________________________________________");
+    #####:  399:                                printf("\n|  IMPOSSIVEL BUSCAR AMIZADE , DEVE HAVER PELO MENOS 2 PESSOAS CADASTRADAS    |");
+    #####:  400:                                printf("\n|                   PRESSIONE QUALQUER TECLA PARA CONTINUAR                   |");
+    #####:  401:                                printf("\n|_____________________________________________________________________________|\n");
+    #####:  402:                                                          c=getchar();
+    #####:  403:                      scanf("%c",&c);                 
+        -:  404:                          }
+        -:  405:                          else{
+    #####:  406:                               system("clear");
+    #####:  407:                               printf("\n _____________________________________________________________________________");
+    #####:  408:                               printf("\n|                VOCE ESCOLHEU BUSCAR UMA AMIZADE POR NOME                 |");
+    #####:  409:                               printf("\n|_____________________________________________________________________________|\n\n");
+    #####:  410:                               printf("\n\n\t\t        LISTA DAS AMIZADES CADASTRADAS\n");
+    #####:  411:                               printf("\t\t___________________________________________\n\n");
+    #####:  412:                               for (i=1; i<=10; i++){
+    #####:  413:                                    printf("\t\t NUMERO >> %d\t\t\tNOME >> %s\n",1,nome[i]);
+    #####:  414:                                    printf("\n\t\t___________________________________________\n\n");  
+        -:  415:                               }
+    #####:  416:                             printf("\n     >> AGORA, ENTRE COM O NUMERO DA NOME A SER BUSCADA NAS AMIZADES: ");                           
+    #####:  417:                               scanf(" %[^\n]s", pesquisa);
+        -:  418:                                
+    #####:  419:                               printf("\n\n\t\t LISTA DAS AMIZADES CADASTRADAS PARA A PESSOA\n");
+    #####:  420:                               printf("\t\t___________________________________________\n");                         
+    #####:  421:                               for (i=1; i<=10; i++){                            
+    #####:  422:                                   if (strcmp (pesquisa, amizade1[i])==0){                                   
+    #####:  423:                                        printf("\t\t CONTROLE >> %d\t\t\tAMIZADE >> %d\n\t\t\t\tAMIZADE1  >> %s\n\t\t\t\tAMIZADE2  >> %s\n",1,num[i],amizade1[i],amizade2[i]);
+    #####:  424:                                        printf("\n\t\t___________________________________________\n\n");                              
+    #####:  425:                                        quantidade++;
+    #####:  426:                                        result = 1;
+        -:  427:                                   }                                  
+    #####:  428:                                   if (strcmp (pesquisa, amizade2[i])==0){                                  
+    #####:  429:                                        printf("\t\t CONTROLE >> %d\t\t\tAMIZADE >> %d\n\t\t\t\tAMIZADE1  >> %s\n\t\t\t\tAMIZADE2  >> %s\n",1,num[i],amizade1[i],amizade2[i]);
+    #####:  430:                                        printf("\n\t\t___________________________________________\n\n");                              
+    #####:  431:                                        quantidade++;
+    #####:  432:                                        result = 1;                                  
+        -:  433:                                   } 
+    #####:  434:                                   if ((i == 9)&&(result!= 1)){
+    #####:  435:                                        printf("\n\t\t                -  ZERO  -                 \n"); 
+    #####:  436:                                        printf("\n\t\t NAO HA REGISTROS CADASTRADOS PARA ESSE NOME\n\n\n");
+        -:  437:                                   }           
+        -:  438:                               } 
+        -:  439:                                           
+    #####:  440:                               printf("\n _____________________________________________________________________________");
+    #####:  441:                               printf("\n|    BUSCAS REALIZADAS COM SUCESSO!                                           |");
+    #####:  442:                               printf("\n|                   PRESSIONE QUALQUER TECLA PARA CONTINUAR                   |");
+    #####:  443:                               printf("\n|_____________________________________________________________________________|\n");
+    #####:  444:                                                         c=getchar();
+    #####:  445:                      scanf("%c",&c);               
+        -:  446:                          }
+    #####:  447:                     break;
+        -:  448:                     
+        -:  449:                     case 8:
+        1:  450:                          fim();
+        1:  451:                          resp = 2;
+        1:  452:                                                    c=getchar();
+        1:  453:                      scanf("%c",&c);               
+        1:  454:                     break;
+        -:  455:                           
+        -:  456:                     
+        -:  457:                     
+        -:  458:                    
+        -:  459:                     
+        -:  460:                     
+        -:  461:                     
+        -:  462:                     
+        -:  463:                }  
+        -:  464:                 
+        -:  465:       }
+        1:  466:       return 0;     
+        -:  467:}
